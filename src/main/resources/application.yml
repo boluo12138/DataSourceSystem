@@ -1,5 +1,7 @@
 server:
   port: 8089
+  error:
+    include-exception: true
 spring:
   datasource:
     druid:
@@ -15,3 +17,4 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+    enable-sql-runner: true

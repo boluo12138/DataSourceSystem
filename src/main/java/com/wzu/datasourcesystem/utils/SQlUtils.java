@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 public class SQlUtils {
     public static boolean isValid(DatabaseInfo databaseInfo) {
-//        String url1 = "jdbc:mysql://127.0.0.1:3306/datasourcesystem?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&characterEncoding=utf-8";
-//        String username = "root";
-//        String password = "123456";
         String url = "jdbc:" + databaseInfo.getDbType() + "://"
                 + databaseInfo.getDbIp() + ":" + databaseInfo.getPort() + "/"
                 + databaseInfo.getDbName() +
