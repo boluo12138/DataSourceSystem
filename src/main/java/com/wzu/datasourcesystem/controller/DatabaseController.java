@@ -62,14 +62,14 @@ public class DatabaseController {
     }
 
     @PostMapping("/update")
-    public R<DatabaseInfo> update(DatabaseInfo databaseInfo) {
+    public R<DatabaseInfo> update(@RequestBody DatabaseInfo databaseInfo) {
         boolean isCreate = SQlUtils.isValid(databaseInfo);
         if (isCreate) {
             databaseMapper.updateById(databaseInfo);
             log.info(databaseInfo.toString());
             return R.success(databaseInfo);
         } else {
-            return R.error("连接失败，无法插入，请重新检查数据源");
+            return R.error("连接失败，无法修改，请重新检查数据源");
         }
     }
 
