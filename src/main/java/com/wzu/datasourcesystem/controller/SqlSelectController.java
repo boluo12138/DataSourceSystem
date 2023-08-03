@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Slf4j
@@ -24,7 +26,7 @@ public class SqlSelectController {
     DatabaseMapper databaseMapper;
 
     @PostMapping("/getSysName")
-    public R<List> getSysName(@RequestBody DatabaseInfo databaseInfo){
+    public R<Set> getSysName(@RequestBody DatabaseInfo databaseInfo){
         log.info(databaseInfo.toString());
         List<DatabaseInfo> list;
         QueryWrapper<DatabaseInfo> wrapper = new QueryWrapper<>();
@@ -33,26 +35,31 @@ public class SqlSelectController {
                     .eq("db_type",databaseInfo.getDbType());
             list = databaseMapper.selectList(wrapper);
         }else if(databaseInfo.getDbName().equals("")){
-            wrapper.select("db_name")
+
+            wrapper.select("db_name","id")
                     .eq("db_type",databaseInfo.getDbType())
                     .eq("sys_name",databaseInfo.getSysName());
             list = databaseMapper.selectList(wrapper);
         }else{
             return R.error("数据库选择错误");
         }
-        return R.success(list);
+        Set<DatabaseInfo> sets=new HashSet<>(list);
+        return R.success(sets);
     }
 
 
 
-    @RequestMapping("/select")
-    public R<ArrayList> sqlselect(@RequestBody SqlSelect sqlSelect){//Database database, @RequestParam("sql") String sql
+    @PostMapping("/select")
+    public R<ArrayList> sqlselect(@RequestBody SqlSelect sqlSelect){
+        log.info(sqlSelect.toString());
+        //Database database, @RequestParam("sql") String sql
         ArrayList<Object> result = new ArrayList<>();
-        QueryWrapper<DatabaseInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("sys_name",sqlSelect.getSysName())
-                .eq("db_type",sqlSelect.getDbType())
-                .eq("db_name",sqlSelect.getDbName());
-        DatabaseInfo database = databaseMapper.selectOne(wrapper);
+//        QueryWrapper<DatabaseInfo> wrapper = new QueryWrapper<>();
+//        wrapper.eq("sys_name",sqlSelect.getSysName())
+//                .eq("db_type",sqlSelect.getDbType())
+//                .eq("db_name",sqlSelect.getDbName());
+//        DatabaseInfo database = databaseMapper.selectOne(wrapper);
+        DatabaseInfo database = databaseMapper.selectById(sqlSelect.getId());
         if(database == null){
             return R.error("数据库不存在");
         }

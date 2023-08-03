@@ -5,6 +5,7 @@ import com.wzu.datasourcesystem.pojo.DatabaseInfo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SqlSelectUtil {
 
@@ -25,21 +26,26 @@ public class SqlSelectUtil {
     }
 
 
-    public static ArrayList<HashMap<String,String>> select(DatabaseInfo database, String sql) {
+    public static ArrayList<Object> select(DatabaseInfo database,String sql) {
 
-        URL = "jdbc:"+database.getDbType()+"://"+database.getDbIp()+":"+database.getPort()+"/"+database.getDbName()+"?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&characterEncoding=utf-8";
+        URL = "jdbc:" + database.getDbType() +
+                "://" + database.getDbIp()+ ":"
+                +database.getPort() + "/"+ database.getDbName() +
+                "?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&characterEncoding=utf-8";
         USERNAME = database.getUserName();
         PASSWORD = database.getPassword();
         Connection conn = null;
-        ArrayList<HashMap<String,String>> list = new ArrayList<>();
+        ArrayList<Object> list = new ArrayList<>();
+        List<String> columns = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             ResultSetMetaData metaData = resultSet.getMetaData();
-//            for (int i = 0; i < metaData.getColumnCount(); i++) {
-//                list.add(metaData.getColumnName(i+1));
-//            }
+            for (int i = 0; i < metaData.getColumnCount(); i++) {
+                columns.add(metaData.getColumnName(i+1));
+            }
+            list.add(columns);
             while (resultSet.next()){
                 HashMap<String,String> data = new HashMap();
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {

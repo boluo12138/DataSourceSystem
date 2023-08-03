@@ -18,3 +18,9 @@ mybatis-plus:
     db-config:
       id-type: ASSIGN_ID
     enable-sql-runner: true
+## 发送邮件配置
+mail:
+  # 发件人地址
+  user: 2982681306@qq.com
+  # 发件人授权码
+  password: virxuladxmjtdgfc

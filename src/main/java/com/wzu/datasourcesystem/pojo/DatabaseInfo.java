@@ -30,8 +30,8 @@ public class DatabaseInfo {
     private Integer pageNum;
     @TableField(exist = false)
     private Integer pageSize;
-    @TableField(exist = false)
-    private Integer[] ids;
-    @TableField(exist = false)
-    private String[] options;
+//    @TableField(exist = false)
+//    private Integer[] ids;
+//    @TableField(exist = false)
+//    private String[] options;
 }
