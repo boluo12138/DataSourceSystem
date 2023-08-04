@@ -1,21 +1,37 @@
 package com.wzu.datasourcesystem;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
+import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
+import com.baomidou.mybatisplus.core.toolkit.support.ColumnCache;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda;
 import com.baomidou.mybatisplus.extension.toolkit.SqlRunner;
 import com.wzu.datasourcesystem.mapper.DatabaseMapper;
 import com.wzu.datasourcesystem.mapper.OptionMapper;
 import com.wzu.datasourcesystem.pojo.DatabaseInfo;
 import com.wzu.datasourcesystem.utils.SQlUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.property.PropertyNamer;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @SpringBootTest
 public class DatabaseConnectionTester {
 
@@ -90,5 +106,15 @@ public class DatabaseConnectionTester {
         System.out.println();
 
     }
+
+
+    @Test
+    public void printTableFieldNames() {
+
+
+
+    }
+
+
 }
 

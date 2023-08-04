@@ -21,10 +21,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("/sql")
 public class SqlSelectController {
-
     @Autowired
     DatabaseMapper databaseMapper;
-
     @PostMapping("/getSysName")
     public R<Set> getSysName(@RequestBody DatabaseInfo databaseInfo){
         log.info(databaseInfo.toString());
@@ -63,7 +61,7 @@ public class SqlSelectController {
         if(database == null){
             return R.error("数据库不存在");
         }
-
+//        sqlSelect.getSql().replace()
         String[] sqls = sqlSelect.getSql().split(";");
         for (int i = 0; i < sqls.length; i++) {
             ArrayList data = SqlSelectUtil.select(database,sqls[i]);

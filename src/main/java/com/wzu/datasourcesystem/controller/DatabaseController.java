@@ -87,14 +87,14 @@ public class DatabaseController {
         }
     }
 
-//    @PostMapping("/delete")
-//    public R<String> deleteSQL(@RequestBody DatabaseInfo databaseInfo) {
-//        int i = databaseMapper.deleteBatchIds(Arrays.asList(databaseInfo.getIds()));
-////        int i = databaseMapper.deleteById(id);
-//        if(i>0){
-//            return R.success("删除成功");
-//        }else {
-//            return R.error("删除失败");
-//        }
-//    }
+    @PostMapping("/delete")
+    public R<String> deleteSQL(@RequestBody DatabaseInfo databaseInfo) {
+        int i = databaseMapper.deleteBatchIds(Arrays.asList(databaseInfo.getIds()));
+//        int i = databaseMapper.deleteById(id);
+        if(i>0){
+            return R.success("删除成功");
+        }else {
+            return R.error("删除失败");
+        }
+    }
 }
